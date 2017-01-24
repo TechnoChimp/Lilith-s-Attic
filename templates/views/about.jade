@@ -1,0 +1,9 @@
+extends ../layouts/default
+
+block content
+	.container
+		.row
+			.col-sm-6: != content
+			.col-sm-6: .panel.panel-default
+				.panel-body
+					img(src=image.secure_url).img-responsive

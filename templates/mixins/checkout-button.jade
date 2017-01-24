@@ -1,0 +1,12 @@
+mixin checkout-button(args)
+	form(action="https://www.paypal.com/cgi-bin/webscr" method="post")
+		input(type="hidden" name="cmd" value="_cart")
+		input(type="hidden" name="upload" value="1")
+		input(type="hidden" name="business" value="support-facilitator@lilithsattic.com")
+		input(type="hidden" name="item_name_1" value="Test Item Name 1")
+		input(type="hidden" name="amount_1" value=".01")
+		input(type="hidden" name="shipping_1" value="0")
+		input(type="hidden" name="item_name_2" value="Test Item Name 2")
+		input(type="hidden" name="amount_2" value=".01")
+		input(type="hidden" name="shipping_2" value="0")
+		input(type="submit" value="Checkout").btn.btn-success

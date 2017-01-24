@@ -1,0 +1,22 @@
+extends ../layouts/default
+
+block content
+	.container
+		.row
+		for notice in data.notices
+			if notice.image.exists
+				.col-sm-6: .panel.panel-default
+					if notice.title
+						.panel-heading.text-center 
+							h3 #{notice.title}
+					.panel-body
+						if notice.image.exists
+							img(src=notice._.image.fit(750,450)).img-responsive
+						if notice.content
+							!= notice.content
+			else
+				.col-sm-6
+					if notice.title
+						h3 #{notice.title}
+					if notice.content
+						!= notice.content

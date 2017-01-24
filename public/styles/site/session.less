@@ -1,0 +1,28 @@
+.auth-form-divider {
+  color: @gray-light;
+  margin-bottom: 1.5em;
+  margin-top: 1em;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+
+  &:after {
+    .size(100%,1px);
+    background-color: @hr-border;
+    content: "";
+    left: 0;
+    top: 50%;
+    position: absolute;
+  }
+}
+.auth-form-divider-text {
+  background-color: @body-bg;
+  display: inline-block;
+  padding: 0 1em;
+  position: relative;
+  z-index: 1;
+
+  .modal & {
+    background-color: @gray-dark;
+  }
+}

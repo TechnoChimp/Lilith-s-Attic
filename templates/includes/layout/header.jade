@@ -1,0 +1,36 @@
+#header
+	header(role="navigation").navbar.navbar-default
+		div.container
+			nav
+				div.container-fluid
+					div.navbar-header
+						button(type="button" data-toggle="collapse" data-target="#navbar").navbar-toggle.collapsed
+							span.sr-only: Toggle navigation
+							span.icon-bar
+							span.icon-bar
+							span.icon-bar
+						a.navbar-brand(href='/') Lilith's Attic
+					div#navbar.collapse.navbar-collapse
+						ul.nav.navbar-nav.navbar-left
+							each link in navLinks
+								li(class=(section == link.key ? 'active' : null)): a(href=link.href)= link.label
+						ul.nav.navbar-nav.navbar-right
+							li: a(href='/mycart') 
+								- var cartCount = 0
+								if session.cart
+									- var cartCount = session.cart.length
+								span.glyphicon.glyphicon-shopping-cart
+								| My Cart
+								span(id="cart_count").badge #{cartCount}
+							if user
+								li: a(href='/myorders') My Orders
+								if user.canAccessKeystone
+									li: a(href='/keystone') Admin
+								li: a(href='/signout') Sign Out
+							else
+								li: a(href='/signin', data-from=page.path, data-initial='signin').js-auth-trigger Sign In
+	
+	div.page-header
+		h1.text-center Lilith's Attic
+			br
+			small #{page.subtitle}

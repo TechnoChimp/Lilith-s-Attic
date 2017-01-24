@@ -1,0 +1,73 @@
+include ../mixins/flash-messages
+include ../mixins/checkout-button
+include ../mixins/auth/auth-forms
+
+doctype html
+html
+
+	//- HTML HEADER
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+
+		title= title || 'Lilith\'s Attic'
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+		link(href="/styles/site.min.css", rel="stylesheet")
+
+		if user && user.canAccessKeystone
+			link(href="/keystone/styles/content/editor.min.css", rel="stylesheet")
+
+		block css
+
+		block head
+
+	//- HTML BODY
+	body
+
+		//- SITE HEADER
+		include ../includes/layout/header
+			
+		//- BODY
+		#body
+
+			//- NOTE:
+			//- There is no .container wrapping class around body blocks to allow more flexibility in design.
+			//- Remember to include it in your templates when you override the intro and content blocks!
+
+			//- The Intro block appears above flash messages (used for temporary information display)
+			block intro
+
+			//- Flash messages allow you to display once-off status messages to users, e.g. form
+			//- validation errors, success messages, etc.
+			block flash-messages
+				+flash-messages(messages)
+
+			//- The content block should contain the body of your template's content
+			block content
+
+
+		//- FOOTER
+		.container: #footer
+			hr
+			p &copy; 2016 Liliths Attic LLC
+
+		//- MODALS
+		block modal
+		if !user
+			#modal-auth(tabindex="-1", role="dialog", aria-labelledby="signin", aria-hidden="true").modal.fade
+				.modal-dialog
+					.modal-content
+						+auth-forms({ modal:true, initial: 'signin' })
+
+		//- JAVASCRIPT
+		script(src='/js/jquery/jquery-1.11.3.min.js')
+		script(src='/js/bootstrap/bootstrap-3.3.5.min.js')
+
+		if user && user.canAccessKeystone
+			script(src='/keystone/js/content/editor.js')
+		
+		script(src='/js/ui.js')
+		script(src='/js/fb.js')
+
+		block js

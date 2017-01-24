@@ -1,0 +1,21 @@
+extends ../layouts/default
+
+block content
+	.container
+		.row
+			.col-md-6
+				img(src=data.product._.image.fit(500,375)).img-responsive
+				br
+				!= data.product.content
+			.col-md-6
+				h3 #{data.product.name}
+				h4 #{data.product._.salePrice.format('$0,0.00')}
+				br
+				if data.product.state == 'published'
+					a(href="/cartadd?product_id=#{data.product._id}")
+						.btn.btn-success ADD TO CART
+				else
+					.btn.btn-primary.disabled SOLD
+				br 
+				br
+				.fb-like(data-href="https://lilithsattic.com/product/#{data.product.slug}", data-layout="button", data-action="like", data-size="large", data-show-faces="true", data-share="true")

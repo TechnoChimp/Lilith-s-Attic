@@ -1,0 +1,32 @@
+extends ../layouts/default
+
+block content
+	.container
+		.row
+			for product in data.product.results
+				.col-xs-12.col-sm-6.col-md-4: .panel.panel-default
+					.panel-heading
+						a(href="/product/#{product.slug}")
+							img(src=product._.image.fit(480,320)).img-responsive
+					.panel-body
+						h4 #{product.name}
+						h5 #{product._.salePrice.format('$0,0.00')}
+						.row
+							.col-xs-12.text-center
+								if product.state == 'published'
+									a(href="/cartadd?product_id=#{product._id}")
+										.btn.btn-success ADD TO CART
+								else
+									.btn.btn-primary.disabled SOLD
+		.row
+			if data.product.totalPages > 1
+				nav(aria-label="Page navigation").text-center
+					ul.pagination
+						if data.product.previous
+							li: a(href="?page=#{data.product.previous}", aria-label="Previous")
+								span(aria-hidden="true") &laquo;
+						for page in data.product.pages
+							li: a(href="?page=#{page}") #{page}
+						if data.product.next
+							li: a(href="?page=#{data.product.next}", aria-label="Next")
+								span(aria-hidden="true") &raquo;

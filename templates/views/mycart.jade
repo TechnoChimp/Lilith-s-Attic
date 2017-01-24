@@ -1,0 +1,54 @@
+extends ../layouts/default
+
+
+block content
+	- var price = 0
+	- var shipping = 0
+	- var total = 0
+	.container
+		.row
+			.col-md-8
+				h4 Your Cart (#{data.product.length})
+				each product in data.product
+					- price += product.salePrice
+					- shipping += product.shippingCharged
+					- total = price + shipping
+					hr
+					.row
+						.col-xs-12.col-sm-3
+							img(src=product.image.secure_url).img-responsive
+						.col-xs-8.col-sm-6
+							a(href='product/' + product.slug)=product.name
+						.col-xs-2.text-right
+							| $#{product.salePrice}
+						.col-xs-2.col-sm-1
+							a(href="cartdel?product_id=#{product._id}")
+								span.glyphicon.glyphicon-trash
+						
+			br
+			.col-md-4: .panel.panel-default
+				.panel-heading
+					h4.text-center Order Summary
+				.panel-body
+					.row
+						.col-xs-6
+							| Subtotal
+						.col-xs-6.text-right
+							h5 $#{price}
+					hr
+					.row
+						.col-xs-6
+							| Shipping
+						.col-xs-6.text-right
+							h5 $#{shipping}
+					hr
+					.row
+						.col-xs-6
+							| Total
+						.col-xs-6.text-right
+							h5 $#{total}
+						.col-xs-12.text-right
+							+checkout-button()
+							br
+							br
+							img(src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/cc-badges-ppmcvdam.png").img-responsive
